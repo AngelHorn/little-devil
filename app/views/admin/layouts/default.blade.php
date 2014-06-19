@@ -59,10 +59,11 @@
 
 	@yield('styles')
 
-	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 
@@ -132,11 +133,11 @@
 	<!-- ./ container -->
 
 	<!-- Javascripts -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="{{asset('assets/js/jquery.min.js')}}"></script>
     <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assets/js/wysihtml5/wysihtml5-0.3.0.js')}}"></script>
     <script src="{{asset('assets/js/wysihtml5/bootstrap-wysihtml5.js')}}"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+    <script src="{{asset('assets/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/js/datatables-bootstrap.js')}}"></script>
     <script src="{{asset('assets/js/datatables.fnReloadAjax.js')}}"></script>
     <script src="{{asset('assets/js/jquery.colorbox.js')}}"></script>

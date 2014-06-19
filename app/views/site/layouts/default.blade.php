@@ -30,10 +30,11 @@
 		@show
 		</style>
 
-		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-		<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+        <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
 
 		<!-- Favicons
 		================================================== -->
@@ -107,7 +108,7 @@
 
 		<!-- Javascripts
 		================================================== -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="{{asset('assets/js/jquery.min.js')}}"></script>
         <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
 
         @yield('scripts')
