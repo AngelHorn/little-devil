@@ -45,6 +45,14 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
     Route::post('classes/{class}/delete', 'AdminClassesController@postDelete');
     Route::controller('classes','AdminClassesController');
 
+    # Meals Management
+    Route::get('meals/{meal}/show', 'AdminMealsController@getShow');
+    Route::get('meals/{meal}/edit', 'AdminMealsController@getEdit');
+    Route::post('meals/{meal}/edit', 'AdminMealsController@postEdit');
+    Route::get('meals/{meal}/delete', 'AdminMealsController@getDelete');
+    Route::post('meals/{meal}/delete', 'AdminMealsController@postDelete');
+    Route::controller('meals','AdminMealsController');
+
     # Comment Management
     Route::get('comments/{comment}/edit', 'AdminCommentsController@getEdit');
     Route::post('comments/{comment}/edit', 'AdminCommentsController@postEdit');
