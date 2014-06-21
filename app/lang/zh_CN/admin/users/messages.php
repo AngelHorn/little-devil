@@ -6,7 +6,7 @@ return array(
 	'does_not_exist'    => '用户不存在',
 	'login_required'    => '请确认账户名称已输入',
 	'password_required' => '请确认密码已输入',
-	'password_does_not_match' => '密码不符合规则',
+	'password_does_not_match' => '确认密码与密码不一致',
 
 	'create' => array(
 		'error'   => '创建账户失败, 请重试',

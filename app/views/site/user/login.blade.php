@@ -9,30 +9,30 @@
 {{-- Content --}}
 @section('content')
 <div class="page-header">
-	<h1>Login into your account</h1>
+	<h1>登陆小恶魔</h1>
 </div>
 <form class="form-horizontal" method="POST" action="{{ URL::to('user/login') }}" accept-charset="UTF-8">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <fieldset>
         <div class="form-group">
-            <label class="col-md-2 control-label" for="email">{{ Lang::get('confide::confide.username_e_mail') }}</label>
+            <label class="col-md-2 control-label" for="email">Email</label>
             <div class="col-md-10">
-                <input class="form-control" tabindex="1" placeholder="{{ Lang::get('confide::confide.username_e_mail') }}" type="text" name="email" id="email" value="{{ Input::old('email') }}">
+                <input class="form-control" tabindex="1" placeholder="请输入您的Email地址" type="text" name="email" id="email" value="{{ Input::old('email') }}">
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label" for="password">
-                {{ Lang::get('confide::confide.password') }}
+                密码
             </label>
             <div class="col-md-10">
-                <input class="form-control" tabindex="2" placeholder="{{ Lang::get('confide::confide.password') }}" type="password" name="password" id="password">
+                <input class="form-control" tabindex="2" placeholder="请输入您的密码" type="password" name="password" id="password">
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <div class="checkbox">
-                    <label for="remember">{{ Lang::get('confide::confide.login.remember') }}
+                    <label for="remember">记住我
                         <input type="hidden" name="remember" value="0">
                         <input tabindex="4" type="checkbox" name="remember" id="remember" value="1">
                     </label>
@@ -50,8 +50,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button tabindex="3" type="submit" class="btn btn-primary">{{ Lang::get('confide::confide.login.submit') }}</button>
-                <a class="btn btn-default" href="forgot">{{ Lang::get('confide::confide.login.forgot_password') }}</a>
+                <button tabindex="3" type="submit" class="btn btn-primary">进入小恶魔</button>
+                <a class="btn btn-default" href="forgot">忘记密码 ?</a>
             </div>
         </div>
     </fieldset>
