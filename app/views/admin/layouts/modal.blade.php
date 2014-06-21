@@ -62,9 +62,10 @@
 
     @yield('styles')
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
     <!-- Asynchronous google analytics; this is the official snippet.
@@ -97,7 +98,7 @@
             {{ $title }}
             <div class="pull-right">
                 <button class="btn btn-default btn-small btn-inverse close_popup"><span
-                        class="glyphicon glyphicon-circle-arrow-left"></span> Back
+                        class="glyphicon glyphicon-circle-arrow-left"></span> 关闭
                 </button>
             </div>
         </h3>

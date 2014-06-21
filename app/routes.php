@@ -36,8 +36,15 @@ Route::pattern('token', '[0-9a-z]+');
  */
 Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 {
-    /*******************************/
-    Route::get('class','AdminClassController@getIndex');
+
+    # Class Management
+    Route::get('classes/{class}/show', 'AdminClassesController@getShow');
+    Route::get('classes/{class}/edit', 'AdminClassesController@getEdit');
+    Route::post('classes/{class}/edit', 'AdminClassesController@postEdit');
+    Route::get('classes/{class}/delete', 'AdminClassesController@getDelete');
+    Route::post('classes/{class}/delete', 'AdminClassesController@postDelete');
+    Route::controller('classes','AdminClassesController');
+
     # Comment Management
     Route::get('comments/{comment}/edit', 'AdminCommentsController@getEdit');
     Route::post('comments/{comment}/edit', 'AdminCommentsController@postEdit');
@@ -71,7 +78,6 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 
     # Admin Dashboard
     Route::controller('/', 'AdminDashboardController');
-
 });
 
 
