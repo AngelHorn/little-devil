@@ -36,7 +36,8 @@ Route::pattern('token', '[0-9a-z]+');
  */
 Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 {
-
+    /*******************************/
+    Route::get('class','AdminClassController@getIndex');
     # Comment Management
     Route::get('comments/{comment}/edit', 'AdminCommentsController@getEdit');
     Route::post('comments/{comment}/edit', 'AdminCommentsController@postEdit');
@@ -70,6 +71,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
 
     # Admin Dashboard
     Route::controller('/', 'AdminDashboardController');
+
 });
 
 
@@ -109,3 +111,5 @@ Route::post('{postSlug}', 'BlogController@postView');
 
 # Index Page - Last route, no matches
 Route::get('/', array('before' => 'detectLang','uses' => 'BlogController@getIndex'));
+
+

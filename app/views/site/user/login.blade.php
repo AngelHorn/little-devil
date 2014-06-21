@@ -17,7 +17,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label" for="email">Email</label>
             <div class="col-md-10">
-                <input class="form-control" tabindex="1" placeholder="请输入您的Email地址" type="text" name="email" id="email" value="{{ Input::old('email') }}">
+                <input class="form-control" tabindex="1" placeholder="请输入您的Email地址" type="text" name="email" id="email" value="{{ Input::old('email') }}" autofocus>
             </div>
         </div>
         <div class="form-group">
