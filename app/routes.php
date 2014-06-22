@@ -93,6 +93,7 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
  *  Frontend Routes
  *  ------------------------------------------
  */
+Route::controller('sell','SellController');
 
 // User reset routes
 Route::get('user/reset/{token}', 'UserController@getReset');
@@ -125,5 +126,7 @@ Route::post('{postSlug}', 'BlogController@postView');
 
 # Index Page - Last route, no matches
 Route::get('/', array('before' => 'detectLang','uses' => 'BlogController@getIndex'));
+
+
 
 
