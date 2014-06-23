@@ -8,10 +8,19 @@
 
 {{-- Content --}}
 @section('content')
+<div id="preloader">
+    <div id="loadingbar" style="background-position: 0px 0px;">
+        <img src="http://www.ok-studios.de/fileadmin/templates/okstudios/images/preload_logo.png" width="245"
+             height="245">
+    </div>
+    <div id="loadingtext">Alle Inhalte geladen.<br>Herzlich Willkommen!</div>
+</div>
 <!--nav bar-->
 <ul class="nav nav-pills nav-stacked text-center" id="nav">
     @foreach($classes as $class)
-    <li><a data-href="#{{$class->name_en}}" title="Next Section">{{$class->name}}</a></li>
+    <li><a data-href="#{{$class->name_en}}" title="Next Section">
+            {{$class->name_en}} <small>({{$class->name}})</small>
+        </a></li>
     @endforeach
 </ul>
 <!--end of nav bar-->
@@ -22,18 +31,33 @@
         <div class="row">
             @foreach($class->meals()->get() as $meal)
             <div class="col-md-6">
-                <div class="thumbnail">
-                    <img src="/assets/img/meal-img/coffee.jpg" data-src="holder.js/300x200" alt="...">
-                    <div class="caption text-center">
-                        <h3>{{$meal->name}}</h3>
-                        <p>
-                            <a class="btn btn-lg btn-primary" role="button">加入购物车</a>
-                            <a class="btn btn-lg btn-danger" data-toggle="popover"
-                               data-content="配料:<br>低筋面粉、鸡蛋、牛奶、乳酪<br>"
-                               data-original-title="{{$meal->name}} - 原料信息">
-                                信息
-                            </a>
-                        </p>
+                <div class="row meal-div">
+                    <div class="col-md-6">
+                        <a class="thumbnail">
+                            <img src="/assets/img/meal-img/coffee.jpg" alt="图片加载失败" data-src="holder.js/300x200">
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-warning">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading text-center">
+                                <h4 style="margin: 5px 0px;">{{$meal->name_en}}<br><small>{{$meal->name}}</small></h4>
+                            </div>
+
+                            <!-- List group -->
+                            <ul class="list-group">
+                                <li class="list-group-item">Price <small>(单价)</small> : ¥{{$meal->price}}</li>
+                                <li class="list-group-item">Calorie <small>(热量)</small> : 90 Calorie</li>
+                            </ul>
+                            <div class="panel-footer text-center">
+                                <a class="btn btn-primary" role="button">Add to Cart</a>
+                                <a class="btn btn-warning" data-toggle="popover"
+                                   data-content="{{$meal->description}}"
+                                   data-original-title="{{$meal->name_en}} - information">
+                                    Info
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -54,9 +78,9 @@
 <!--<script src="/assets/js/scrolldeck/js/jquery.scrollorama.js"></script>-->
 <!--<script src="/assets/js/scrolldeck/js/jquery.scrolldeck.js"></script>-->
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         //meals description show button
-        $('.thumbnail .caption a[data-original-title]').popover({html:true});
+        $('.meal-class-div a[data-original-title]').popover({html: true, container: 'body'});
     });
     $(document).ready(function () {
         //$('#nav').localScroll(800);
@@ -72,12 +96,18 @@
         //adjuster - y position to start from
         //inertia - speed to move relative to vertical scroll. Example: 0.1 is one tenth the speed of scrolling, 2 is twice the speed of scrolling
         //outerHeight (true/false) - Whether or not jQuery should use it's outerHeight option to determine when a section is in the viewport
-
+        classes_background_array = [];
         /*
          @foreach($classes as $class)
          */
-        $('#{{$class->name_en}}').css('background-image', 'url(/assets/js/scrolldeck/decks/parallax/images/{{$class->background}})');
+        if ("{{$class->background}}".length > 1) {
+            var class_background_name = "/assets/img/class-background/{{$class->background}}";
+        } else {
+            var class_background_name = "/assets/img/class-background/default.jpg";
+        }
+        $('#{{$class->name_en}}').css('background-image', 'url(' + class_background_name + ')');
         $('#{{$class->name_en}}').parallax("50%", 1000, 0.0, true);
+        classes_background_array.push(class_background_name)
         /*
          @endforeach
          */
@@ -116,4 +146,5 @@
         });
     });
 </script>
+<script src="/assets/js/preloader.js"></script>
 @stop
