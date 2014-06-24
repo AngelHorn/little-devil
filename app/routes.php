@@ -95,6 +95,9 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
  */
 Route::controller('sell','SellController');
 
+//Cart routes
+Route::controller('cart','CartController');
+
 // User reset routes
 Route::get('user/reset/{token}', 'UserController@getReset');
 // User password reset

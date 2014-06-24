@@ -2,10 +2,19 @@
 
 class SellController extends BaseController
 {
-    public function getIndex(){
-//        echo MealClass::find(1)->meals()->get()->toJson();die;
+    public function getIndex()
+    {
+        Session::flush();
+        if (!Session::has('cart')) {
+            Session::put('cart', array('meals' => array(), 'total' => 0, 'subtotal' => 0));
+        }
         return View::make('sell.blog.index')
-            ->with('classes',MealClass::get());
+            ->with('classes', MealClass::get());
+    }
+
+    public function getDescription()
+    {
+        echo MealTable::where('id', Input::get('id'))->pluck('description');
     }
 
 } 

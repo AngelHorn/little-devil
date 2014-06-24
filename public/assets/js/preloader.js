@@ -35,7 +35,7 @@
 $(function () {
     $.preload(classes_background_array, {
         init: function (loaded, total) {
-            $(".meal-class-div").hide();
+            $(".meal-class-div, #cart-div").hide();
             $("#loadingtext").html("Inhalte werden geladen... bitte warten");
         },
         loaded: function (img, loaded, total) {
@@ -48,7 +48,7 @@ $(function () {
         loaded_all: function (loaded, total) {
             $("#loadingtext").html("加载成功, 正在打开");
             $("#preloader").delay(500).fadeOut();
-            $(".meal-class-div").delay(1000).fadeIn("slow");
+            $(".meal-class-div, #cart-div").delay(1000).fadeIn("slow");
             // xmas loader:
             // $("#loadingtext").html("Frohe Weihnachten!");
             // $("#preloader").delay(2500).fadeOut();
