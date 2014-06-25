@@ -198,6 +198,7 @@
 <!--<script src="/assets/js/scrolldeck/js/jquery.scrolldeck.js"></script>-->
 <script type="text/javascript">
     $(function () {
+        //test
         //css by jquery
         $('#cartColumn table:first-child').css('max-height', (window.innerHeight * 0.6 + 10));
 
@@ -205,7 +206,7 @@
         $('.meal-class-div a[data-original-title]').popover({html: true, container: 'body'});
         $('.meal-div').hover(function () {
             var data_meal_id = $(this).attr('data-meal-id');
-            show_information_div_delay = setTimeout(function(){
+            show_information_div_delay = setTimeout(function () {
                 showInformationDiv(data_meal_id);
             }, 600);
         }, function () {
@@ -247,6 +248,13 @@
                 $("#information-div").slideUp();
             }
             addToCart($(this).attr('data-meal-id'), 1, 'add');
+            var togglt_cart_blink = setInterval(function () {
+                $('#toggle-cart').fadeToggle(100);
+            }, 100);
+            setTimeout(function(){
+                $('#toggle-cart').fadeIn(100);
+                clearInterval(togglt_cart_blink);
+            },500);
         });
         //empty cart
         $('.empty-cart').click(function () {
