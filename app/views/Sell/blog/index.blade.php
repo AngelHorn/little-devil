@@ -175,13 +175,15 @@
 </div>
 @endforeach
 
+<!-- information div  -->
 <div id="information-div" class="container" style="position: fixed;top: 0px;left:50%;margin-top: 100px;">
     <div class="col-md-6">
         <div class="panel">
-            <div class="panel-body"></div>
+            <div class="panel-body">我们的介绍</div>
         </div>
     </div>
 </div>
+<!-- end of information div -->
 
 @stop
 {{-- end of content --}}
@@ -197,22 +199,35 @@
 <script type="text/javascript">
     $(function () {
         //css by jquery
-        $('#cartColumn table:first-child').css('max-height',window.innerHeight*0.6);
+        $('#cartColumn table:first-child').css('max-height', (window.innerHeight * 0.6 + 10));
 
         //meals description show button
         $('.meal-class-div a[data-original-title]').popover({html: true, container: 'body'});
         $('.meal-div').hover(function () {
             var data_meal_id = $(this).attr('data-meal-id');
-            if ($('#information-div').is(':not(:animated)') && $('#cartColumn:hidden').length > 0) {
+            show_information_div_delay = setTimeout(function(){
+                showInformationDiv(data_meal_id);
+            }, 600);
+        }, function () {
+            clearTimeout(show_information_div_delay);
+        });
+        var showInformationDiv = function (data_meal_id) {
+//            alert(data_meal_id);
+            var $information_div = $("#information-div").filter(':not(:animated)');
+            if ($information_div.length > 0 && $('#cartColumn:hidden').length > 0) {
+                if ($information_div.attr('data-show-meal-id') == data_meal_id) {
+                    return false;
+                }
+                $information_div.attr('data-show-meal-id', data_meal_id);
                 $.get('/sell/description', {"id": data_meal_id}, function (data) {
-                    $("#information-div").fadeToggle(300, function () {
-                        $('#information-div .panel-body').html(data);
+                    $information_div.fadeOut(400, function () {
+                        $(this).find('.panel-body').html(data);
+                        $(this).fadeIn(400);
                     });
-                    $("#information-div").fadeToggle(300);
+//                    $("#information-div").filter(':not(:animated)');
                 });
             }
-        }, function () {
-        });
+        };
 
         //cart show && hide
         $('#toggle-cart').click(function () {
@@ -258,6 +273,7 @@
 
         var updateCart = function (json, url) {
             $.post(url, json, function (data) {
+                var cart_table_scroll_pos = $('#cartColumn table:first-child').scrollTop();
                 $('.cart-tr-model:hidden').siblings().remove();
                 $.each(data.meals, function (index, meal) {
                     var $cart_Tr_Model = $('.cart-tr-model:hidden').clone().removeClass('cart-tr-model');
@@ -277,7 +293,14 @@
                 $('#cart-subtotal').text(data.subtotal);
                 //overhidden css change for cart
                 if ($('#cartColumn table:first-child').height() > (window.innerHeight * 0.6)) {
-                    $('#cartColumn table:first-child').css({'display':'inline-block','overflowY':'auto'});
+                    $('#cartColumn table:first-child').css({'display': 'inline-block', 'overflowY': 'auto'});
+
+                } else {
+                    $('#cartColumn table:first-child').css({'display': 'table', 'overflowY': 'auto'});
+                }
+                //cart table scroll
+                if (cart_table_scroll_pos > 0) {
+                    $('#cartColumn table:first-child').scrollTo(cart_table_scroll_pos);
                 }
             }, 'json');
         };
