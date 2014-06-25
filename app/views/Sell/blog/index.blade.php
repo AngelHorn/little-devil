@@ -130,41 +130,37 @@
         @foreach($class->meals()->get() as $meal)
         <div class="row">
             <div class="col-md-6">
-                <div class="row meal-div" data-meal-id="{{$meal->id}}">
-                    <div class="col-md-6">
-                        <a class="thumbnail">
-                            <img src="/assets/img/meal-img/coffee.jpg" alt="图片加载失败" data-src="holder.js/300x200">
-                        </a>
+                <div class="panel panel-warning meal-div" data-meal-id="{{$meal->id}}">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading text-center">
+                        <h4 style="margin: 5px 0px;">{{$meal->name_en}}<br>
+                            <small>{{$meal->name}}</small>
+                        </h4>
                     </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-warning">
-                            <!-- Default panel contents -->
-                            <div class="panel-heading text-center">
-                                <h4 style="margin: 5px 0px;">{{$meal->name_en}}<br>
-                                    <small>{{$meal->name}}</small>
-                                </h4>
-                            </div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <a class="thumbnail">
+                                <img src="/assets/img/meal-img/coffee.jpg" alt="图片加载失败"
+                                     data-src="holder.js/300x200">
+                            </a>
+                        </div>
+                        <div class="col-md-6"><hr>
+                            <h4>Price
+                                <small>(单价)</small>
+                                : ¥{{$meal->price}}
+                            </h4><hr>
+                            <h4>Calorie
+                                <small>(热量)</small>
+                                : 90 Calorie
+                            </h4><hr>
+                            <a class="btn btn-primary add-to-cart" data-meal-id="{{$meal->id}}"
+                               role="button">Add to Cart <small>(加入购物车)</small></a>
 
-                            <!-- List group -->
-                            <ul class="list-group">
-                                <li class="list-group-item">Price
-                                    <small>(单价)</small>
-                                    : ¥{{$meal->price}}
-                                </li>
-                                <li class="list-group-item">Calorie
-                                    <small>(热量)</small>
-                                    : 90 Calorie
-                                </li>
-                            </ul>
-                            <div class="panel-footer text-center">
-                                <a class="btn btn-primary add-to-cart" data-meal-id="{{$meal->id}}"
-                                   role="button">Add to Cart</a>
-                                <!--                                <a class="btn btn-warning" data-toggle="popover"-->
-                                <!--                                   data-content="{{$meal->description}}"-->
-                                <!--                                   data-original-title="{{$meal->name_en}} - information">-->
-                                <!--                                    Info-->
-                                <!--                                </a>-->
-                            </div>
+                            <!--                                <a class="btn btn-warning" data-toggle="popover"-->
+                            <!--                                   data-content="{{$meal->description}}"-->
+                            <!--                                   data-original-title="{{$meal->name_en}} - information">-->
+                            <!--                                    Info-->
+                            <!--                                </a>-->
                         </div>
                     </div>
                 </div>
@@ -198,7 +194,6 @@
 <!--<script src="/assets/js/scrolldeck/js/jquery.scrolldeck.js"></script>-->
 <script type="text/javascript">
     $(function () {
-        //test
         //css by jquery
         $('#cartColumn table:first-child').css('max-height', (window.innerHeight * 0.6 + 10));
 
@@ -230,7 +225,7 @@
             }
         };
 
-        //cart show && hide1
+        //cart show && hide
         $('#toggle-cart').click(function () {
             if ($('#cartColumn:hidden').length > 0) {
                 $('#cartColumn:hidden').slideDown();
@@ -251,10 +246,10 @@
             var togglt_cart_blink = setInterval(function () {
                 $('#toggle-cart').fadeToggle(100);
             }, 100);
-            setTimeout(function(){
+            setTimeout(function () {
                 $('#toggle-cart').fadeIn(100);
                 clearInterval(togglt_cart_blink);
-            },500);
+            }, 500);
         });
         //empty cart
         $('.empty-cart').click(function () {

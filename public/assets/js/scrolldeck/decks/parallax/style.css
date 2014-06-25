@@ -80,9 +80,11 @@ h2 {
 
 .meal-class-div .meal-div {
     margin: 5px 0px;
-    border: 4px solid rgba(120, 220, 220, .0);
+    border: 10px solid rgba(120, 220, 220, .0);
+    border-top: none;
+    border-bottom: none;
     border-radius: 3px;
-    transition: all 0.25s ease-in-out;
+    transition: border 0.5s ease-in-out;
 }
 
 #information-div .panel-body, .meal-div {
@@ -90,7 +92,9 @@ h2 {
 }
 
 .meal-class-div .meal-div:hover {
-    border: 4px solid #f89406;
+    border: 10px solid #f89406;
+    border-top: none;
+    border-bottom: none;
 }
 
 .meal-class-div .meal-div .thumbnail, .meal-class-div .meal-div .panel {
