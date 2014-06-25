@@ -214,7 +214,7 @@
         });
         var showInformationDiv = function (data_meal_id) {
 //            alert(data_meal_id);
-            var $information_div = $("#information-div").filter(':not(:animated)');
+            var $information_div = $("#information-div .panel-body");
             if ($information_div.length > 0 && $('#cartColumn:hidden').length > 0) {
                 if ($information_div.attr('data-show-meal-id') == data_meal_id) {
                     return false;
@@ -222,7 +222,7 @@
                 $information_div.attr('data-show-meal-id', data_meal_id);
                 $.get('/sell/description', {"id": data_meal_id}, function (data) {
                     $information_div.fadeOut(400, function () {
-                        $(this).find('.panel-body').html(data);
+                        $(this).html(data);
                         $(this).fadeIn(400);
                     });
 //                    $("#information-div").filter(':not(:animated)');
@@ -230,7 +230,7 @@
             }
         };
 
-        //cart show && hide
+        //cart show && hide1
         $('#toggle-cart').click(function () {
             if ($('#cartColumn:hidden').length > 0) {
                 $('#cartColumn:hidden').slideDown();
