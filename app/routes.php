@@ -98,6 +98,9 @@ Route::controller('sell','SellController');
 //Cart routes
 Route::controller('cart','CartController');
 
+//Order routes
+Route::controller('order','OrderController');
+
 // User reset routes
 Route::get('user/reset/{token}', 'UserController@getReset');
 // User password reset

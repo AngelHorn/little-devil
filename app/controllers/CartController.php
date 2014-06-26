@@ -8,6 +8,11 @@ class CartController extends BaseController
         $this->cart = Session::get('cart');
     }
 
+    public function postCheckCart()
+    {
+        echo json_encode($this->cart);
+    }
+
     public function postAddToCart()
     {
         $meal_id = Input::get('id');
