@@ -255,8 +255,14 @@
                         </label>
 
                         <div class="col-md-10">
+                            @if (Auth::check())
+                            <input type="text" class="form-control" id="cart-order-tel"
+                                   value="{{Auth::user()->tel}}"
+                                   placeholder="请填写正确的电话以便我们配送时联系您">
+                            @else
                             <input type="text" class="form-control" id="cart-order-tel"
                                    placeholder="请填写正确的电话以便我们配送时联系您">
+                            @endif
                         </div>
                     </div>
                     <div class="form-group">
@@ -265,8 +271,14 @@
                         </label>
 
                         <div class="col-md-10">
+                            @if(Auth::check())
+                            <input type="text" class="form-control" id="cart-order-address"
+                                   value="{{Auth::user()->address}}"
+                                   placeholder="请填写正确的电话以便我们配送时联系您">
+                            @else
                             <input type="text" class="form-control" id="cart-order-address"
                                    placeholder="请填写正确的电话以便我们配送时联系您">
+                            @endif
                         </div>
                     </div>
                     <div class="alert alert-warning fade in" style="display: none;">
@@ -278,7 +290,8 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel
                     <small>(取消购买)</small>
                 </button>
-                <button type="button" id="cart-confirm-submit" class="btn btn-primary">Confirm to Check
+                <button type="button" id="cart-confirm-submit" class="btn btn-primary"
+                        data-loading-text="Submitting <small>(提交中, 请稍候)</small>">Confirm to Check
                     <small>(确认购买)</small>
                 </button>
             </div>
@@ -316,16 +329,19 @@ $(function () {
             $(".alert").show();
             return false;
         }
+        $(this).button('loading');
         var json = {
             "tel": tel,
             "address": address
         };
         $.post('/order/add-to-order', json, function (data) {
             if (data === 'success') {
+                alert('购买成功, 点击确定查看此订单的状态');
                 window.location.href = '/user';
             } else {
                 $(".alert strong").text(data);
                 $(".alert").show();
+                $('#cart-confirm-submit').button('reset');
             }
         });
     });

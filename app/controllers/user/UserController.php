@@ -30,9 +30,13 @@ class UserController extends BaseController
         if ($redirect) {
             return $redirect;
         }
-
+        $orderList = OrderList::where('uid', Auth::user()->id)->orderBy('id','desc')->get();
+        foreach ($orderList as $key=>$order) {
+            $orderList[$key]->statusname = $this->transformStatus($order->status);
+        }
         // Show the page
-        return View::make('site/user/index', compact('user'));
+        return View::make('site/user/index', compact('user'))
+            ->with('orderList', $orderList);
     }
 
     /**
