@@ -162,12 +162,6 @@
                                role="button">Add to Cart
                                 <small>(加入购物车)</small>
                             </a>
-
-                            <!--                                <a class="btn btn-warning" data-toggle="popover"-->
-                            <!--                                   data-content="{{$meal->description}}"-->
-                            <!--                                   data-original-title="{{$meal->name_en}} - information">-->
-                            <!--                                    Info-->
-                            <!--                                </a>-->
                         </div>
                     </div>
                 </div>

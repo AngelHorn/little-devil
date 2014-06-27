@@ -73,7 +73,7 @@ margin-bottom: 0px;
                                     <tr>
                                         <td>{{$meal->mealTable()->pluck('name_en')}}
                                         <br><small>{{$meal->mealTable()->pluck('name')}}</small></td>
-                                        <td>{{$meal->pluck('number')}}</td>
+                                        <td>{{$meal->number}}</td>
                                         <td>¥{{$meal->mealTable()->pluck('price')}}</td>
                                     </tr>
                                     @endforeach
