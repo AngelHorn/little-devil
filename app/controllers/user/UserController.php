@@ -101,7 +101,7 @@ class UserController extends BaseController
         if ($validator->passes()) {
             $oldUser = clone $user;
             $user->username = Input::get('username');
-            $user->email = Input::get('email');
+//            $user->email = Input::get('email');
 
             $password = Input::get('password');
             $passwordConfirmation = Input::get('password_confirmation');

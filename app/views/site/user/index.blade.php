@@ -55,23 +55,33 @@ margin-bottom: 0px;
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
-                                        <th>名称</th>
-                                        <th>数量</th>
-                                        <th>小计</th>
+                                        <th>
+                                            Product<br>
+                                            <small>(餐点)</small>
+                                        </th>
+                                        <th style="width: 100px;">
+                                            Qty.<br>
+                                            <small>(数量)</small>
+                                        </th>
+                                        <th>
+                                            Price<br>
+                                            <small>(单价)</small>
+                                        </th>
                                     </tr>
                                     </thead>
                                     @foreach($order->orderMealList()->get() as $meal)
                                     <tr>
-                                        <td>{{$meal->mealTable()->pluck('name')}}</td>
+                                        <td>{{$meal->mealTable()->pluck('name_en')}}
+                                        <br><small>{{$meal->mealTable()->pluck('name')}}</small></td>
                                         <td>{{$meal->pluck('number')}}</td>
-                                        <td>{{$meal->mealTable()->pluck('price')}}</td>
+                                        <td>¥{{$meal->mealTable()->pluck('price')}}</td>
                                     </tr>
                                     @endforeach
                                 </table>
                             </div>
                             <div class="col-md-6">
                                 <h4>
-                                    <span class="label label-danger">订单金额 : {{$order->price}}</span>
+                                    <span class="label label-danger">订单金额 : ¥{{$order->price}}</span>
                                 </h4>
                                 <h4>
                                     <span class="label label-info">电话 ：{{$order->tel}}</span>
@@ -95,11 +105,22 @@ margin-bottom: 0px;
             <!-- ./ csrf token -->
             <!-- General tab -->
             <div class="tab-pane active" id="tab-general">
+                <!-- Email -->
+                <div class="form-group {{{ $errors->has('email') ? 'error' : '' }}}">
+                    <label class="col-md-3 control-label" for="email">Email <small>(电子邮箱)</small></label>
+
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" name="email" id="email"
+                               value="{{{ Input::old('email', $user->email) }}}" disabled/>
+                        {{ $errors->first('email', '<span class="help-inline">:message</span>') }}
+                    </div>
+                </div>
+                <!-- ./ email -->
                 <!-- username -->
                 <div class="form-group {{{ $errors->has('username') ? 'error' : '' }}}">
-                    <label class="col-md-2 control-label" for="username">Username</label>
+                    <label class="col-md-3 control-label" for="username">Name <small>(姓名)</small></label>
 
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <input class="form-control" type="text" name="username" id="username"
                                value="{{{ Input::old('username', $user->username) }}}"/>
                         {{ $errors->first('username', '<span class="help-inline">:message</span>') }}
@@ -107,24 +128,12 @@ margin-bottom: 0px;
                 </div>
                 <!-- ./ username -->
 
-                <!-- Email -->
-                <div class="form-group {{{ $errors->has('email') ? 'error' : '' }}}">
-                    <label class="col-md-2 control-label" for="email">Email</label>
-
-                    <div class="col-md-10">
-                        <input class="form-control" type="text" name="email" id="email"
-                               value="{{{ Input::old('email', $user->email) }}}"/>
-                        {{ $errors->first('email', '<span class="help-inline">:message</span>') }}
-                    </div>
-                </div>
-                <!-- ./ email -->
-
                 <!-- Password -->
                 <div class="form-group {{{ $errors->has('password') ? 'error' : '' }}}">
-                    <label class="col-md-2 control-label" for="password">Password</label>
+                    <label class="col-md-3 control-label" for="password">Password <small>(密码)</small></label>
 
-                    <div class="col-md-10">
-                        <input class="form-control" type="password" name="password" id="password" value=""/>
+                    <div class="col-md-9">
+                        <input placeholder="最小4位  留空则不更改" class="form-control" type="password" name="password" id="password" value=""/>
                         {{ $errors->first('password', '<span class="help-inline">:message</span>') }}
                     </div>
                 </div>
@@ -132,10 +141,10 @@ margin-bottom: 0px;
 
                 <!-- Password Confirm -->
                 <div class="form-group {{{ $errors->has('password_confirmation') ? 'error' : '' }}}">
-                    <label class="col-md-2 control-label" for="password_confirmation">Password Confirm</label>
+                    <label class="col-md-3 control-label" for="password_confirmation">Password Confirm <small>确认密码</small></label>
 
-                    <div class="col-md-10">
-                        <input class="form-control" type="password" name="password_confirmation"
+                    <div class="col-md-9">
+                        <input placeholder="最小4位  留空则不更改 必须与密码一致" class="form-control" type="password" name="password_confirmation"
                                id="password_confirmation"
                                value=""/>
                         {{ $errors->first('password_confirmation', '<span class="help-inline">:message</span>') }}
@@ -147,8 +156,8 @@ margin-bottom: 0px;
 
             <!-- Form Actions -->
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-success">Update</button>
+                <div class="col-md-offset-3 col-md-9">
+                    <button type="submit" class="btn btn-success">Update <small>(确认修改)</small></button>
                 </div>
             </div>
             <!-- ./ form actions -->
