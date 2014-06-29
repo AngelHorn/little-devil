@@ -97,7 +97,7 @@ return array(
                     'fullname' => '<span class="label label-info">全称</span>',
                     'site_name' => '<span class="label label-info">应用名称</span>',
                     'site_url' => '<span class="label label-info">网站URL</span>',
-                    'username' => '<span class="label label-info">用户名</span>',
+                    'username' => '<span class="label label-info">姓名</span>',
                     'realname' => '<span class="label label-info">真实姓名</span>',
                     'email'    => '<span class="label label-info">邮箱</span>',
                     'password' => '<span class="label label-info">密码</span>',

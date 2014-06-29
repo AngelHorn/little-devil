@@ -84,6 +84,9 @@ margin-bottom: 0px;
                                     <span class="label label-danger">订单金额 : ¥{{$order->price}}</span>
                                 </h4>
                                 <h4>
+                                    <span class="label label-warning">收货人 ：{{$order->name}}</span>
+                                </h4>
+                                <h4>
                                     <span class="label label-info">电话 ：{{$order->tel}}</span>
                                 </h4>
                                 <h4>
@@ -141,7 +144,7 @@ margin-bottom: 0px;
 
                 <!-- Password Confirm -->
                 <div class="form-group {{{ $errors->has('password_confirmation') ? 'error' : '' }}}">
-                    <label class="col-md-3 control-label" for="password_confirmation">Password Confirm <small>确认密码</small></label>
+                    <label class="col-md-3 control-label" for="password_confirmation">Password Confirm <small>(确认密码)</small></label>
 
                     <div class="col-md-9">
                         <input placeholder="最小4位  留空则不更改 必须与密码一致" class="form-control" type="password" name="password_confirmation"

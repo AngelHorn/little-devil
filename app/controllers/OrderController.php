@@ -18,11 +18,13 @@ class OrderController extends BaseController
         $validator = Validator::make(
             array(
                 'tel' => Input::get('tel'),
-                'address' => Input::get('address')
+                'address' => Input::get('address'),
+                'name' => Input::get('name')
             ),
             array(
                 'tel' => 'required|min:1|max:20',
-                'address' => 'required|min:6|max:60'
+                'address' => 'required|min:6|max:60',
+                'name' => 'required|min:1|max:10'
             )
         );
         if ($validator->fails()) {
@@ -33,6 +35,7 @@ class OrderController extends BaseController
         $orderList->uid = $uid;
         $orderList->status = 1;
         $orderList->price = $this->order['total'];
+        $orderList->name = Input::get('name');
         $orderList->tel = Input::get('tel');
         $orderList->address = Input::get('address');
         if (!$orderList->save()) {
@@ -53,7 +56,7 @@ class OrderController extends BaseController
             Session::put('cart', array('meals' => array(), 'total' => 0, 'subtotal' => 0));
             echo 'success';
         } else {
-            OrderList::destroy($order_id);//rollback OrderList if no data
+            OrderList::destroy($order_id); //rollback OrderList if no data
             die('提交订单失败, 可能是订单数据为空或服务器出错, 如无法解决请联系客服');
         }
     }
