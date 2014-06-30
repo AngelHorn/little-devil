@@ -4,7 +4,7 @@
 @section('content')
 
 {{-- Edit Blog Form --}}
-<form class="form-horizontal" method="post"
+<form class="form-horizontal" method="post" enctype="multipart/form-data"
       action="@if (isset($post)){{ URL::to('admin/classes/' . $post->id . '/edit') }}@endif" autocomplete="off">
     <!-- CSRF Token -->
     <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
@@ -24,9 +24,13 @@
                 </div>
                 <div class="col-md-12">
                     <label class="control-label" for="name">分类名称 (英)</label>
-                    <input class="form-control" type="text" name="name" id="name"
+                    <input class="form-control" type="text" name="name_en" id="name"
                            value="{{{ Input::old('title', isset($class) ? $class->name_en : null) }}}"/>
                     {{{ $errors->first('title', '<span class="help-block">:message</span>') }}}
+                </div>
+                <div class="col-md-12">
+                    <label class="control-label" for="name">分类背景图片</label>
+                    <input name="background" type="file"/>
                 </div>
             </div>
             <!-- ./ post title -->

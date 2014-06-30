@@ -24,8 +24,8 @@ class AdminClassesController extends AdminController
     {
         // Declare the rules for the form validation
         $rules = array(
-            'name' => 'required|min:3',
-            'name_en' =>'required|min:3|max:32'
+            'name' => 'required|min:2',
+            'name_en' => 'required|min:3|max:32'
         );
 
         // Validate the inputs
@@ -69,8 +69,8 @@ class AdminClassesController extends AdminController
 
         // Declare the rules for the form validation
         $rules = array(
-            'name' => 'required|min:3',
-            'name_en' =>'required|min:3|max:32'
+            'name' => 'required|min:2',
+            'name_en' => 'required|min:3|max:32'
         );
 
         // Validate the inputs
@@ -78,10 +78,14 @@ class AdminClassesController extends AdminController
 
         // Check if the form validates with success
         if ($validator->passes()) {
+
             // Update the blog post data
             $classModel = MealClass::find($class);
             $classModel->name = Input::get('name');
             $classModel->name_en = Input::get('name_en');
+            if ($_FILES['background']['error'] == 0) {
+                $classModel->background = $this->uploadImg();
+            }
 
             // Was the blog post updated?
             if ($classModel->save()) {
@@ -95,6 +99,15 @@ class AdminClassesController extends AdminController
 
         // Form validation failed
         return Redirect::to('admin/classes/' . $class . '/edit')->withInput()->withErrors($validator);
+    }
+
+    public function uploadImg()
+    {
+        $temp = explode('.', $_FILES['background']['name']);
+        $new_name = Input::get('name_en') . '.' . end($temp);
+        $new_path = './assets/img/class-background/' . $new_name;
+        move_uploaded_file($_FILES['background']['tmp_name'], $new_path);
+        return $new_name;
     }
 
     public function getData()
