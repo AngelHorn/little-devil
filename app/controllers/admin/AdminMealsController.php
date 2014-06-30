@@ -26,6 +26,7 @@ class AdminMealsController extends AdminController
         // Declare the rules for the form validation
         $rules = array(
             'name' => 'required|min:3',
+            'name_en' => 'required|min:3',
             'price' => 'required|min:1',
             'class_id' => 'required'
         );
@@ -37,8 +38,9 @@ class AdminMealsController extends AdminController
         if ($validator->passes()) {
             // Create a new blog post
 //            $user = Auth::user();
-            $mealModel =new MealTable;
+            $mealModel = new MealTable;
             $mealModel->name = Input::get('name');
+            $mealModel->name_en = Input::get('name_en');
             $mealModel->price = Input::get('price');
             $mealModel->class_id = Input::get('class_id');
 
@@ -71,6 +73,7 @@ class AdminMealsController extends AdminController
         // Declare the rules for the form validation
         $rules = array(
             'name' => 'required|min:3',
+            'name_en' => 'required|min:3',
             'price' => 'required|min:1',
             'class_id' => 'required'
         );
@@ -83,8 +86,13 @@ class AdminMealsController extends AdminController
             // Update the blog post data
             $mealModel = MealTable::find($meal);
             $mealModel->name = Input::get('name');
+            $mealModel->name_en = Input::get('name_en');
             $mealModel->price = Input::get('price');
             $mealModel->class_id = Input::get('class_id');
+
+            if (is_object(Input::file('img'))) {
+                $mealModel->img = $this->putMealImg($meal);
+            }
 
             // Was the blog post updated?
             if ($mealModel->save()) {
@@ -100,10 +108,54 @@ class AdminMealsController extends AdminController
         return Redirect::to('admin/meals/' . $meal . '/edit')->withInput()->withErrors($validator);
     }
 
+    public function putMealImg($meal)
+    {
+        // 获取所有表单数据
+        $data = Input::all();
+        // 创建验证规则
+        $rules = array(
+            'img' => 'required|mimes:jpeg,gif,png,bmp,jpg',
+        );
+        // 自定义验证消息
+        $messages = array(
+            'img.required' => '请选择需要上传的图片。',
+            'img.mimes' => '请上传 :values 格式的图片。',
+        );
+        // 开始验证
+        $validator = Validator::make($data, $rules, $messages);
+        if ($validator->passes()) {
+            // 验证成功
+            $image = Input::file('img');
+            $ext = $image->guessClientExtension(); // 根据 mime 类型取得真实拓展名
+            $fullname = $image->getClientOriginalName(); // 客户端文件名，包括客户端拓展名
+            $hashname = md5($meal) . '.' . $ext; // 哈希处理过的文件名，包括真实拓展名
+            // 图片信息入库
+            $meal = MealTable::find($meal);
+//            $oldImage = $meal->img;
+            $meal->img = $hashname;
+            $meal->save();
+            // 存储不同尺寸的图片
+            $img = Image::make($image->getRealPath());
+            $img->resize(360, 300)->save(public_path('assets/img/meal-img/' . $hashname));
+            // 删除旧头像
+            return $hashname;
+        } else {
+            // 验证失败
+            var_dump($data);
+            return null;
+        }
+    }
+
     public function getData()
     {
-        $mealClass = MealTable::select(array('meal_table.name', 'meal_table.price', 'meal_table.updated_at', 'meal_table.id', 'meal_table.class_id'));
-
+        $mealClass =
+            MealTable::select(
+                array(
+                    'meal_table.id',
+                    'meal_table.name',
+                    'meal_table.price',
+                    'meal_table.updated_at',
+                    'meal_table.class_id'));
         return Datatables::of($mealClass)
 
             ->edit_column('class', '{{ DB::table(\'meal_class\')->where(\'id\', \'=\', $class_id)->pluck(\'name\') }}')

@@ -84,7 +84,7 @@ class AdminClassesController extends AdminController
             $classModel->name = Input::get('name');
             $classModel->name_en = Input::get('name_en');
             if ($_FILES['background']['error'] == 0) {
-                $classModel->background = $this->uploadImg();
+                $classModel->background = $this->putClassBackground();
             }
 
             // Was the blog post updated?
@@ -101,7 +101,7 @@ class AdminClassesController extends AdminController
         return Redirect::to('admin/classes/' . $class . '/edit')->withInput()->withErrors($validator);
     }
 
-    public function uploadImg()
+    public function putClassBackground()
     {
         $temp = explode('.', $_FILES['background']['name']);
         $new_name = Input::get('name_en') . '.' . end($temp);

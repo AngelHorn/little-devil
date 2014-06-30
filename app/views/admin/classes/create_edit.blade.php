@@ -28,10 +28,12 @@
                            value="{{{ Input::old('title', isset($class) ? $class->name_en : null) }}}"/>
                     {{{ $errors->first('title', '<span class="help-block">:message</span>') }}}
                 </div>
+                @if (isset($class))
                 <div class="col-md-12">
                     <label class="control-label" for="name">分类背景图片</label>
                     <input name="background" type="file"/>
                 </div>
+                @endif
             </div>
             <!-- ./ post title -->
         </div>

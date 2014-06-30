@@ -4,7 +4,7 @@
 @section('content')
 
 {{-- Edit Blog Form --}}
-<form class="form-horizontal" method="post"
+<form class="form-horizontal" method="post" enctype="multipart/form-data"
       action="@if (isset($post)){{ URL::to('admin/classes/' . $post->id . '/edit') }}@endif" autocomplete="off">
     <!-- CSRF Token -->
     <input type="hidden" name="_token" value="{{{ csrf_token() }}}"/>
@@ -41,6 +41,16 @@
                 </div>
             </div>
             <!-- ./ name -->
+            <!-- name-en -->
+            <div class="form-group {{{ $errors->has('title') ? 'error' : '' }}}">
+                <div class="col-md-12">
+                    <label class="control-label" for="name">餐点名称 (英)</label>
+                    <input class="form-control" type="text" name="name_en" id="name"
+                           value="{{{ Input::old('title', isset($meal) ? $meal->name_en : null) }}}"/>
+                    {{{ $errors->first('title', '<span class="help-block">:message</span>') }}}
+                </div>
+            </div>
+            <!-- ./ name-en -->
             <!-- price -->
             <div class="form-group {{{ $errors->has('title') ? 'error' : '' }}}">
                 <div class="col-md-12">
@@ -61,11 +71,24 @@
                 </div>
             </div>
             <!-- ./ content -->
+            @if(isset($meal) && strlen($meal->img)>0)
+            <a href="#" class="thumbnail">
+                <img src="/assets/img/meal-img/{{$meal->img}}" data-src="holder.js/100%x180">
+            </a>
+            @endif
+            @if (isset($meal))
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="control-label" for="name">餐点背景图片</label>
+                    <input name="img" type="file"/>
+                </div>
+            </div>
+            @endif
         </div>
         <!-- ./ general tab -->
     </div>
     <!-- ./ tabs content -->
-
+    <hr>
     <!-- Form Actions -->
     <div class="form-group">
         <div class="col-md-12">
