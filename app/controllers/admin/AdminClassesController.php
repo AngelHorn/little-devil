@@ -25,6 +25,7 @@ class AdminClassesController extends AdminController
         // Declare the rules for the form validation
         $rules = array(
             'name' => 'required|min:3',
+            'name_en' =>'required|min:3|max:32'
         );
 
         // Validate the inputs
@@ -39,6 +40,7 @@ class AdminClassesController extends AdminController
             // Update the blog post data
             $classModel = new MealClass;
             $classModel->name = Input::get('name');
+            $classModel->name_en = Input::get('name_en');
 
             // Was the blog post created?
             if ($classModel->save()) {
@@ -59,7 +61,7 @@ class AdminClassesController extends AdminController
         return View::make('admin/classes/create_edit')
             ->with('title', '编辑分类')
             ->with('class', MealClass::find($class));
-        return View::make('admin/blogs/create_edit', compact('post', 'title'));
+//        return View::make('admin/blogs/create_edit', compact('post', 'title'));
     }
 
     public function postEdit($class)
@@ -68,6 +70,7 @@ class AdminClassesController extends AdminController
         // Declare the rules for the form validation
         $rules = array(
             'name' => 'required|min:3',
+            'name_en' =>'required|min:3|max:32'
         );
 
         // Validate the inputs
@@ -78,6 +81,7 @@ class AdminClassesController extends AdminController
             // Update the blog post data
             $classModel = MealClass::find($class);
             $classModel->name = Input::get('name');
+            $classModel->name_en = Input::get('name_en');
 
             // Was the blog post updated?
             if ($classModel->save()) {

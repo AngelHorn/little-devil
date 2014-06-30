@@ -22,6 +22,12 @@
                            value="{{{ Input::old('title', isset($class) ? $class->name : null) }}}"/>
                     {{{ $errors->first('title', '<span class="help-block">:message</span>') }}}
                 </div>
+                <div class="col-md-12">
+                    <label class="control-label" for="name">分类名称 (英)</label>
+                    <input class="form-control" type="text" name="name" id="name"
+                           value="{{{ Input::old('title', isset($class) ? $class->name_en : null) }}}"/>
+                    {{{ $errors->first('title', '<span class="help-block">:message</span>') }}}
+                </div>
             </div>
             <!-- ./ post title -->
         </div>

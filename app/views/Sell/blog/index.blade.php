@@ -244,11 +244,26 @@
                 </table>
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label for="cart-order-tel" class="col-md-2 control-label">
-                            <span class="text-danger">*Tel</span>
+                        <label for="cart-order-name" class="col-md-3 control-label">
+                            <span class="text-danger">*Name (姓名)</span>
+                        </label>
+                        <div class="col-md-9">
+                            @if(Auth::check())
+                            <input type="text" class="form-control" id="cart-order-name"
+                                   value="{{Auth::user()->username}}"
+                                   placeholder="请填写正确的姓名以便我们配送时联系您">
+                            @else
+                            <input type="text" class="form-control" id="cart-order-name"
+                                   placeholder="请填写正确的电话以便我们配送时联系您">
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cart-order-tel" class="col-md-3 control-label">
+                            <span class="text-danger">*Tel (手机号码)</span>
                         </label>
 
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             @if (Auth::check())
                             <input type="text" class="form-control" id="cart-order-tel"
                                    value="{{Auth::user()->tel}}"
@@ -260,18 +275,18 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="cart-order-tel" class="col-md-2 control-label">
-                            <span class="text-danger">*Address</span>
+                        <label for="cart-order-tel" class="col-md-3 control-label">
+                            <span class="text-danger">*Address (地址)</span>
                         </label>
 
-                        <div class="col-md-10">
+                        <div class="col-md-9">
                             @if(Auth::check())
                             <input type="text" class="form-control" id="cart-order-address"
                                    value="{{Auth::user()->address}}"
-                                   placeholder="请填写正确的电话以便我们配送时联系您">
+                                   placeholder="请填写正确的地址以便我们配送时联系您">
                             @else
                             <input type="text" class="form-control" id="cart-order-address"
-                                   placeholder="请填写正确的电话以便我们配送时联系您">
+                                   placeholder="请填写正确的地址以便我们配送时联系您">
                             @endif
                         </div>
                     </div>
@@ -314,6 +329,7 @@ $(function () {
     $('#cart-confirm-submit').click(function () {
         var tel = $('#cart-order-tel').val();
         var address = $('#cart-order-address').val();
+        var name = $('#cart-order-name').val();
         if (tel.length < 1 || tel.length > 20) {
             $(".alert strong").text('手机号码不符合规则');
             $(".alert").show();
@@ -322,15 +338,20 @@ $(function () {
             $(".alert strong").text('地址长度少于6个字符或超过60个字符');
             $(".alert").show();
             return false;
+        } else if (name.length < 1 || name.length > 7) {
+            $(".alert strong").text('姓名为空或长度超过7个字符');
+            $(".alert").show();
+            return false;
         }
         $(this).button('loading');
         var json = {
             "tel": tel,
-            "address": address
+            "address": address,
+            "name": name
         };
         $.post('/order/add-to-order', json, function (data) {
             if (data === 'success') {
-                alert('购买成功, 点击确定查看此订单的状态');
+                alert('购买成功, 点击确定查看订单的状态');
                 window.location.href = '/user';
             } else {
                 $(".alert strong").text(data);
@@ -369,7 +390,6 @@ $(function () {
     $('#cartColumn table:first-child').css('max-height', (window.innerHeight * 0.6 + 10));
 
     //meals description show button
-    $('.meal-class-div a[data-original-title]').popover({html: true, container: 'body'});
     $('.meal-div').hover(function () {
         var data_meal_id = $(this).attr('data-meal-id');
         show_information_div_delay = setTimeout(function () {
@@ -379,7 +399,6 @@ $(function () {
         clearTimeout(show_information_div_delay);
     });
     var showInformationDiv = function (data_meal_id) {
-//            alert(data_meal_id);
         var $information_div = $("#information-div .panel-body");
         if ($information_div.length > 0 && $('#cartColumn:hidden').length > 0) {
             if ($information_div.attr('data-show-meal-id') == data_meal_id) {
@@ -391,7 +410,6 @@ $(function () {
                     $(this).html(data);
                     $(this).fadeIn(400);
                 });
-//                    $("#information-div").filter(':not(:animated)');
             });
         }
     };
