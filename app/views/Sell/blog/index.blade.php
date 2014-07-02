@@ -11,7 +11,7 @@
 @section('content')
 
 <!--cart-->
-<div id="cart-div" class="container">
+<div id="cart-div" class="container" style="display: none;">
     <div class="col-md-6">
         <a id="toggle-cart" class="btn btn-info btn-block"><span
                 class="glyphicon glyphicon-shopping-cart"></span> 购物车</a>
@@ -112,7 +112,7 @@
         <img src="http://www.ok-studios.de/fileadmin/templates/okstudios/images/preload_logo.png" width="245"
              height="245">
     </div>
-    <div id="loadingtext">Alle Inhalte geladen.<br>Herzlich Willkommen!</div>
+    <div id="loadingtext">在午后努力加载中, 请稍后....</div>
 </div>
 
 <!--nav bar-->
@@ -127,7 +127,7 @@
 <!--end of nav bar-->
 
 @foreach($classes as $class)
-<div id="{{$class->name_en}}" class="meal-class-div">
+<div id="{{$class->name_en}}" class="meal-class-div" style="display: none;">
     <div class="container">
         @foreach($class->meals()->get() as $meal)
         <div class="row">
@@ -173,7 +173,7 @@
 @endforeach
 
 <!-- information div  -->
-<div id="information-div" class="container" style="position: fixed;top: 0px;left:50%;margin-top: 100px;">
+<div id="information-div" class="container" style="position: fixed;top: 0px;left:50%;margin-top: 100px;display: none;">
     <div class="col-md-6">
         <div class="panel">
             <div class="panel-body">我们的介绍</div>

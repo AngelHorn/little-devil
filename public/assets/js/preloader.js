@@ -35,20 +35,20 @@
 $(function () {
     $.preload(classes_background_array, {
         init: function (loaded, total) {
-            $(".meal-class-div, #cart-div").hide();
-            $("#loadingtext").html("Inhalte werden geladen... bitte warten");
+//            $(".meal-class-div, #cart-div").hide();
+            $("#loadingtext").html("在午后努力加载中, 请稍后....");
         },
         loaded: function (img, loaded, total) {
             var loader = 245 - ((loaded / total) * 245);
             var prozent = Math.round(loaded / total * 100);
-            $("#loadingtext").html("正在加载....: " + prozent + "%");
+            $("#loadingtext").html("在午后努力加载中, 请稍后....: " + prozent + "%");
             //$("#loadingtext").html("Lade jede Menge Inhalte: "+loaded+"/"+total);
             $("#loadingbar").css({"background-position": "0px " + loader + "px"});
         },
         loaded_all: function (loaded, total) {
             $("#loadingtext").html("加载成功, 正在打开");
             $("#preloader").delay(500).fadeOut();
-            $(".meal-class-div, #cart-div").delay(1000).fadeIn("slow");
+            $(".meal-class-div, #cart-div, #information-div").delay(1000).fadeIn("slow");
             // xmas loader:
             // $("#loadingtext").html("Frohe Weihnachten!");
             // $("#preloader").delay(2500).fadeOut();
