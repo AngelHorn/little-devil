@@ -141,10 +141,10 @@
                     </div>
                     <div class="panel-body">
                         <div class="col-md-6">
-                            <a class="thumbnail">
-                                <img src="/assets/img/meal-img/coffee.jpg" alt="图片加载失败"
-                                     data-src="holder.js/300x200">
-                            </a>
+                            <img src="/assets/img/meal-img/{{strlen($meal->img)>0 ? $meal->img : 'default.jpg'}}"
+                                 alt="图片加载失败"
+                                 class="img-responsive"
+                                 data-src="holder.js/300x200" style="margin: 20px 0px;">
                         </div>
                         <div class="col-md-6">
                             <hr>
@@ -247,6 +247,7 @@
                         <label for="cart-order-name" class="col-md-3 control-label">
                             <span class="text-danger">*Name (姓名)</span>
                         </label>
+
                         <div class="col-md-9">
                             @if(Auth::check())
                             <input type="text" class="form-control" id="cart-order-name"

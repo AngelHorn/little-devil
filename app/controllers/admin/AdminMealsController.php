@@ -64,7 +64,7 @@ class AdminMealsController extends AdminController
             ->with('title', '编辑餐点')
             ->with('classes', MealClass::get())
             ->with('meal', MealTable::find($meal));
-        return View::make('admin/blogs/create_edit', compact('post', 'title'));
+//        return View::make('admin/blogs/create_edit', compact('post', 'title'));
     }
 
     public function postEdit($meal)

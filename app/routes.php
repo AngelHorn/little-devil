@@ -53,6 +53,14 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
     Route::post('meals/{meal}/delete', 'AdminMealsController@postDelete');
     Route::controller('meals','AdminMealsController');
 
+    # orders Management
+    Route::get('order/{order}/show', 'AdminOrderController@getShow');
+    Route::get('order/{order}/edit', 'AdminOrderController@getEdit');
+    Route::post('order/{order}/edit', 'AdminOrderController@postEdit');
+    Route::get('order/{order}/delete', 'AdminOrderController@getDelete');
+    Route::post('order/{order}/delete', 'AdminOrderController@postDelete');
+    Route::controller('order','AdminOrderController');
+
     # Comment Management
     Route::get('comments/{comment}/edit', 'AdminCommentsController@getEdit');
     Route::post('comments/{comment}/edit', 'AdminCommentsController@postEdit');
