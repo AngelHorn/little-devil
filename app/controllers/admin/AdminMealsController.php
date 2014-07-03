@@ -108,6 +108,32 @@ class AdminMealsController extends AdminController
         return Redirect::to('admin/meals/' . $meal . '/edit')->withInput()->withErrors($validator);
     }
 
+    public function toggleStatus($meal)
+    {
+        $meal = MealTable::find($meal);;
+        if ($meal->status == 2) {
+            $meal->status = 1;
+        } else {
+            $meal->status = 2;
+        }
+        if ($meal->save()) {
+            die('<script>alert("切换成功");parent.jQuery.colorbox.close();parent.oTable.fnReloadAjax();</script>');
+        } else {
+            die('<script>alert("切换失败, 可能数据重复提交");parent.jQuery.colorbox.close();parent.oTable.fnReloadAjax();</script>');
+        }
+    }
+
+    public function toggleAllStatus($status)
+    {
+        $meals = DB::table('meal_table')->update(array('status' => $status));
+
+        if ($meals >= 0) {
+            die('<script>alert("切换成功");parent.jQuery.colorbox.close();parent.oTable.fnReloadAjax();</script>');
+        } else {
+            die('<script>alert("切换失败, 可能数据重复提交");parent.jQuery.colorbox.close();parent.oTable.fnReloadAjax();</script>');
+        }
+    }
+
     public function putMealImg($meal)
     {
         // 获取所有表单数据
@@ -155,17 +181,21 @@ class AdminMealsController extends AdminController
                     'meal_table.name',
                     'meal_table.price',
                     'meal_table.updated_at',
-                    'meal_table.class_id'));
+                    'meal_table.class_id',
+                    'meal_table.status'));
         return Datatables::of($mealClass)
 
             ->edit_column('class', '{{ DB::table(\'meal_class\')->where(\'id\', \'=\', $class_id)->pluck(\'name\') }}')
 
-            ->remove_column('class_id')->remove_column('id')
-
-            ->add_column('actions', '<a href="{{{ URL::to(\'admin/meals/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >编辑</a>
+            ->add_column('actions', '@if($status==2)
+                <a href="{{{ URL::to(\'admin/meals/\' . $id . \'/status\' ) }}}" class="btn btn-warning btn-xs iframe" >已关闭</a>
+                @else
+                <a href="{{{ URL::to(\'admin/meals/\' . $id . \'/status\' ) }}}" class="btn btn-success btn-xs iframe" >已在售</a>
+                @endif' .
+                '<a href="{{{ URL::to(\'admin/meals/\' . $id . \'/edit\' ) }}}" class="btn btn-default btn-xs iframe" >编辑</a>
                 <a href="{{{ URL::to(\'admin/meals/\' . $id . \'/delete\' ) }}}" class="btn btn-xs btn-danger iframe">删除</a>
             ')
-
+            ->remove_column('status')->remove_column('class_id')->remove_column('id')
 
             ->make();
     }

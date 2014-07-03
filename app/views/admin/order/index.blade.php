@@ -30,11 +30,6 @@ function transformStatus($status)
 <div class="page-header">
     <h3>
         {{{ $title }}}
-
-        <div class="pull-right">
-            <a href="{{{ URL::to('admin/order/create') }}}" class="btn btn-small btn-info iframe"><span
-                    class="glyphicon glyphicon-plus-sign"></span> 添加分类</a>
-        </div>
     </h3>
 </div>
 

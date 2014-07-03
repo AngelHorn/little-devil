@@ -51,6 +51,8 @@ Route::group(array('prefix' => 'admin', 'before' => 'auth'), function()
     Route::post('meals/{meal}/edit', 'AdminMealsController@postEdit');
     Route::get('meals/{meal}/delete', 'AdminMealsController@getDelete');
     Route::post('meals/{meal}/delete', 'AdminMealsController@postDelete');
+    Route::get('meals/{meal}/status', 'AdminMealsController@toggleStatus');
+    Route::get('meals/{status}/all-status', 'AdminMealsController@toggleAllStatus');
     Route::controller('meals','AdminMealsController');
 
     # orders Management

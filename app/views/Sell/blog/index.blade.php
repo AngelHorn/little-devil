@@ -132,7 +132,8 @@
         @foreach($class->meals()->get() as $meal)
         <div class="row">
             <div class="col-md-6">
-                <div class="panel panel-warning meal-div" data-meal-id="{{$meal->id}}">
+                <div class="panel {{ $meal->status==2 ?'panel-default':'panel-warning'}} meal-div"
+                     data-meal-id="{{$meal->id}}">
                     <!-- Default panel contents -->
                     <div class="panel-heading text-center">
                         <h4 style="margin: 5px 0px;">{{$meal->name_en}}<br>
@@ -158,9 +159,16 @@
                                 : 90 Calorie
                             </h4>
                             <hr>
-                            <a class="btn btn-primary add-to-cart" data-meal-id="{{$meal->id}}"
-                               role="button">Add to Cart
+                            <a class="add-to-cart btn {{ $meal->status==2 ? 'disabled btn-default':' btn-primary';}}"
+                               data-meal-id="{{$meal->id}}"
+                               role="button">
+                                @if($meal->status==2)
+                                Out Of Stock
+                                <small>(没有库存了)</small>
+                                @else
+                                Add To Cart
                                 <small>(加入购物车)</small>
+                                @endif
                             </a>
                         </div>
                     </div>

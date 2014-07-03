@@ -21,7 +21,7 @@
 		</h3>
 	</div>
 
-	<table id="classes" class="table table-striped table-hover">
+	<table id="classes" class="table table-hover">
 		<thead>
 			<tr>
 				<th class="col-md-4">分类名称</th>
